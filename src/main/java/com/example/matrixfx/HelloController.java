@@ -3,9 +3,13 @@ package com.example.matrixfx;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.util.Random;
+
+import static java.lang.Thread.sleep;
 
 public class HelloController {
     @FXML
@@ -21,13 +25,33 @@ public class HelloController {
     private VBox arrangeBox;
 
     @FXML
+    GridPane grid1;
+
+    @FXML
     public void random() {
         int[][] num = new int[10][10];
         Random rand = new Random();
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < num.length; i++) {
+            for (int j = 0; j < num[i].length; j++) {
                 num[i][j] = rand.nextInt(99);
-                randomBox.getChildren().addAll(num[i][j]);
+            }
+        }
+
+
+        showMatrix(num, grid1);
+    }
+
+    private void showMatrix(int[][] num, GridPane g) {
+        g.getChildren().clear();
+        for (int i = 0; i < num.length; i++) {
+            for (int j = 0; j < num[i].length; j++) {
+                Label lab = new Label(String.valueOf(num[i][j]));
+                g.add(lab, i, j);
+               /* try {
+                    sleep(200);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }*/
             }
         }
     }
